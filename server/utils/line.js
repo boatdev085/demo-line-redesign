@@ -2,7 +2,8 @@ const axios = require("axios");
 const LINE_MESSAGING_API_REPLY = "https://api.line.me/v2/bot/message/reply";
 const LINE_MESSAGING_API_PUSH = "https://api.line.me/v2/bot/message/push";
 const LINE_GET_PROFILE = "https://api.line.me/v2/bot/profile/";
-const TOKEN = "";
+const TOKEN =
+  "5+vfYzQI6/sNV5ZcA1N5E2MnaDgKdcolWTmjq+moyd+BdEw1VJUODnHsu2rVuvRuLIFjUgKhwdYI4wIFqBgll7XRuYaLJuroaAH9kFuGDnWE9W4xMV7ldmiG29WHucM8DrkPOFrchcE0ucDFGa49YwdB04t89/1O/w1cDnyilFU=";
 
 const LINE_HEADER = {
   "Content-Type": "application/json",

@@ -54,7 +54,7 @@ const demoCase = async ({ replyToken, text, uid }) => {
     let flexSend = true;
     let createMessage = {
       type: `text`,
-      text: ""
+      text: "ไม่พบสิ่งที่ต้องการ"
     };
     switch (text) {
       case "demo quick":
@@ -388,7 +388,7 @@ const demoCase = async ({ replyToken, text, uid }) => {
         createMessage.text = "demo riff";
         break;
       default:
-        flexSend = false;
+        // flexSend = false;
         break;
     }
     if (flexSend) {
