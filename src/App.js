@@ -13,6 +13,7 @@ import {
   notification,
   Checkbox
 } from "antd";
+import Chart from "chart.js";
 import QRCode from "./assets/L.png";
 import Items from "./ components/Items";
 const { Meta } = Card;
@@ -121,16 +122,79 @@ const App = () => {
     return <Items data={useData} setModal={setModal} useProfile={useProfile} />;
   };
   useEffect(() => {
-    getFireStore();
-    liff.init(async data => {
-      let profile = await liff.getProfile();
-      setProfile(profile);
+    // getFireStore();
+    // liff.init(async data => {
+    //   let profile = await liff.getProfile();
+    //   setProfile(profile);
+    // });
+    const data = {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)"
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)"
+          ],
+          borderWidth: 1
+        }
+      ]
+    };
+    const options = {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      }
+    };
+    var sun = new Image();
+    sun.src = "https://i.imgur.com/yDYW1I7.png";
+
+    var cloud = new Image();
+    cloud.src = "https://i.imgur.com/DIbr9q1.png";
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    // var img=document.getElementById("scream");
+    ctx.drawImage(cloud, 10, 10);
+    var ctx = document.getElementById("myChart");
+    Chart.pluginService.register({
+      afterUpdate: function(chart) {
+        console.log("chart", chart);
+        // chart.config.data.datasets[0]._meta[0].data[2]._model.pointStyle = sun;
+        chart.config.data.labels[0] = ctx;
+        // chart.config.data.datasets[1]._meta[0].data[2]._model.pointStyle = cloud;
+      }
     });
+    var myRadarChart = new Chart(ctx, {
+      type: "radar",
+      data: data,
+      options: options
+    });
+    myRadarChart.update();
   }, []);
   const { visible, text } = useModal;
   return (
     <Container>
-      {useProfile.displayName !== "" ? (
+      <canvas id="myCanvas" width="20" height="20"></canvas>
+      <canvas id="myChart" width="400" height="400"></canvas>
+      {/* {useProfile.displayName !== "" ? (
         <>
           <BoxAvatar src={useProfile.pictureUrl} />
           <BoxHeader
@@ -179,7 +243,7 @@ const App = () => {
             อนุญาตให้บอกชื่อกับคนที่ส่งข้อความ
           </Checkbox>
         </div>
-      </Modal>
+      </Modal> */}
     </Container>
   );
 };
